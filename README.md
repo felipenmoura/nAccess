@@ -6,7 +6,7 @@ Using this module, you will be able to get a canonised, final result of a path, 
 
 //TODO: add build, test and validate stickers
 
-### Why?
+##### Why?
 
 HTAccess has been largely used throughout the world in many, many pages, also assuring safety of systems and allowing developers to do more.
 
@@ -16,9 +16,9 @@ The problem with HTAccess:
 - demands some time to learn and understand
 - terrible for debugging problems on itself
 
-### Advantages
+##### Advantages
 
-NAccess come to serve some of HTAccess' features, but in a more organised, clean, easy-to-maintain way!<br/>
+NAccess comes to serve some of HTAccess' features, but in a more organised, clean, easy-to-maintain way!<br/>
 With it, you will have the same power to configure, protect, validate, redirect and log much more with node.js.
 This module can also be used as a middleware for node frameworks like express or restify, for example.
 
