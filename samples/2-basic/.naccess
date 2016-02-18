@@ -1,0 +1,80 @@
+module.exports = {
+    id: "root rules", // used to debug the naccess itself in case of errors
+    allowOverwrite: { // if everything is true, you can use "*"
+        naccessFiles: true, // allow naccess files in children directories to be merged with these rules
+        paths: true, // allow children naccess files to redirect urls and paths
+        headers: { // could be true or false for "all" or "none"
+            status: true, // change header responceCode, such as 404, or 300
+            body: false, // change the response body for the requisition
+            type: true // change the type of the response
+        }
+    },
+    fail: "500.html",
+    debug: true, // in case it is true, it gets verbose on terminal
+    saveLog: {
+        log: false,
+        warn: "./tmp/naccess-warn.log",
+        error: "./tmp/naccess-err.log",
+        access: false // avoid using it on production
+    },
+    // the rules to apply
+    rules: {
+        // you can name each rule, to find it better on logs
+        notFound: {
+            // and then, define the rule
+            match: {
+                header: /404/
+            },
+            apply: {
+                // apply plugins may be added
+                redirect: "./not-found.html?path={{ path }}&query={{ query }}",
+                // in this case, let's say we want to pretend it was a 200
+                status: 200,
+                logWarn: "Someone tried to load {{ path }}?{{ query }}"
+            }
+        },
+        // just another example
+        someRedirect: {
+            match: {
+                // any requisition to something/scss/file.scss
+                path: /(.+)\/scss\/(.*)?/,
+                // should be redirected to something/css/file.css
+                apply: {
+                    // redirects the file
+                    redirect: "$1/css/$2",
+                    // applies the extension, if it is not a directory
+                    extension: ".css",
+                    // and log it
+                    log: "Redirecting scss to css directory"
+                }
+            }
+        },
+        // in case any directory was called
+        anyDir: {
+            match: {
+                // if it is a directory
+                isDir: true
+            },
+            apply: {
+                // redirect it
+                redirect: "/index.js?path={{ path }}&query{{ query }}"
+                // and do not verify the next rules
+                close: true
+            }
+        },
+        // a security validation
+        noJSONForYou: {
+            match: {
+                extension: ".json"
+            },
+            apply: {
+                // the requestBody
+                body: "These .json files are meant to be used only on serverside!",
+                // abort it here
+                abort: "Looking for a .json! {{ path }}",
+                // and log the error
+                logErr: "One shold not look for my JSONs!"
+            }
+        }
+    }
+};
