@@ -27,7 +27,7 @@ module.exports = {
             // should be redirected to /css/file.css
             apply: {
                 // redirects the file
-                redirect: "$1/css/$2",
+                redirect: "/css/$1",
                 // applies the extension, if it is not a directory
                 extension: ".css",
                 // and log it
