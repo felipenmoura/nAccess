@@ -38,15 +38,15 @@ module.exports = {
             match: {
                 // any requisition to something/scss/file.scss
                 path: /(.+)\/scss\/(.*)?/,
-                // should be redirected to something/css/file.css
-                apply: {
-                    // redirects the file
-                    redirect: "$1/css/$2",
-                    // applies the extension, if it is not a directory
-                    extension: ".css",
-                    // and log it
-                    log: "Redirecting scss to css directory"
-                }
+            },
+            // should be redirected to something/css/file.css
+            apply: {
+                // redirects the file
+                redirect: "$1/css/$2",
+                // applies the extension, if it is not a directory
+                extension: ".css",
+                // and log it
+                log: "Redirecting scss to css directory"
             }
         },
         // in case any directory was called
